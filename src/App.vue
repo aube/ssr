@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import { Button } from '@/components/ui/button'
+
 
 if (import.meta.env.SSR) {
   console.log("server")
@@ -25,7 +25,6 @@ if (import.meta.env.SSR) {
     </div>
   </header>
 
-  <Button>123 321</Button>
   <RouterView />
 </template>
 

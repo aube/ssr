@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
+// import tailwindcss from '@tailwindcss/vite'
 
 const base = '/'
 
@@ -14,7 +14,7 @@ export default defineConfig(({ command, ssrBuild, isSsrBuild }) => ({
   base,
   plugins: [
     vuePlugin(),
-    tailwindcss(),
+    // tailwindcss(),
   ],
   resolve: {
     alias: {
