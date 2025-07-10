@@ -24,10 +24,12 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../pages/PageRegister.vue'),
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: () => import('../pages/PageUpload.vue'),
     },
   ],
 })

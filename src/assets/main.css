@@ -1,2 +1,4 @@
 /* @import './base.css'; */
 
+@import 'buefy/dist/buefy.css';
+@import "bulma";

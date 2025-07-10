@@ -21,6 +21,12 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@oruga-ui/oruga-next": "^0.11.1",
+    "@oruga-ui/theme-bulma": "^0.7.0",
+    "@oruga-ui/theme-oruga": "^0.7.0",
+    "buefy": "^1.0.1",
+    "bulma": "^1.0.4",
     "express": "^5.1.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
@@ -41,7 +47,6 @@
     "eslint-plugin-vue": "~10.2.0",
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
-    "naive-ui": "^2.42.0",
     "npm-run-all2": "^8.0.4",
     "typescript": "~5.8.0",
     "vite": "^7.0.0",
