@@ -1,7 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
-import vuePlugin from '@vitejs/plugin-vue'
-// import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
 
 const base = '/'
 
@@ -13,14 +12,11 @@ globalThis.__vite_test_dirname = __dirname
 export default defineConfig(({ command, ssrBuild, isSsrBuild }) => ({
   base,
   plugins: [
-    vuePlugin(),
-    // tailwindcss(),
+    vue(),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '~': fileURLToPath(new URL('.', import.meta.url)),
-      'assets': fileURLToPath(new URL('./src/assets', import.meta.url))
     },
   },
   experimental: {
@@ -37,10 +33,8 @@ export default defineConfig(({ command, ssrBuild, isSsrBuild }) => ({
   },
   ssr: {
     noExternal: [
-      // this package has uncompiled .vue files
+      'naive-ui',
+      'vueuc'
     ],
-  },
-  optimizeDeps: {
-    // exclude: ['@vitejs/test-example-external-component'],
   },
 }))

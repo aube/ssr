@@ -10,7 +10,7 @@ interface ApiResponse<T> {
   loading: boolean;
 }
 
-export function useApi() {
+export function useRestApi() {
   const loading = ref(false);
 
   async function request<T>(
