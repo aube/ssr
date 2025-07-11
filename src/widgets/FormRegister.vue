@@ -1,27 +1,64 @@
 <template>
-  <b-form @submit.prevent="handleSubmit">
-    <b-field label="Имя" :message="errors.name" :type="{'is-danger': errors.name}">
-      <b-input v-model="form.name" placeholder="Введите ваше имя" />
-    </b-field>
+  <o-field
+    label="Имя"
+    :message="errors.name"
+    :type="{'is-danger': errors.name}"
+  >
+    <o-input
+      v-model="form.name"
+      placeholder="Введите ваше имя"
+    />
+  </o-field>
 
-    <b-field label="Email" :message="errors.email" :type="{'is-danger': errors.email}">
-      <b-input v-model="form.email" type="email" placeholder="Введите ваш email" />
-    </b-field>
+  <o-field
+    label="Email"
+    :message="errors.email"
+    :type="{'is-danger': errors.email}"
+  >
+    <o-input
+      v-model="form.email"
+      type="email"
+      placeholder="Введите ваш email"
+    />
+  </o-field>
 
-    <b-field label="Пароль" :message="errors.password" :type="{'is-danger': errors.password}">
-      <b-input v-model="form.password" type="password" placeholder="Введите пароль" password-reveal />
-    </b-field>
+  <o-field
+    label="Пароль"
+    :message="errors.password"
+    :type="{'is-danger': errors.password}"
+  >
+    <o-input
+      v-model="form.password"
+      type="password"
+      placeholder="Введите пароль"
+      password-reveal
+    />
+  </o-field>
 
-    <b-field label="Подтверждение пароля" :message="errors.password_confirmation" :type="{'is-danger': errors.password_confirmation}">
-      <b-input v-model="form.password_confirmation" type="password" placeholder="Повторите пароль" password-reveal />
-    </b-field>
+  <o-field
+    label="Подтверждение пароля"
+    :message="errors.password_confirmation"
+    :type="{'is-danger': errors.password_confirmation}"
+  >
+    <o-input
+      v-model="form.password_confirmation"
+      type="password"
+      placeholder="Повторите пароль"
+      password-reveal
+    />
+  </o-field>
 
-    <b-field>
-      <b-button native-type="submit" type="is-primary" :loading="isLoading" expanded>
-        Зарегистрироваться
-      </b-button>
-    </b-field>
-  </b-form>
+  <o-field>
+    <o-button
+      native-type="submit"
+      type="is-primary"
+      :loading="isLoading"
+      expanded
+      @click="handleSubmit"
+    >
+      Зарегистрироваться
+    </o-button>
+  </o-field>
 </template>
 
 <script setup>

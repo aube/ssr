@@ -1,33 +1,62 @@
 <template>
   <div>
-    <b-field class="file is-primary" :class="{'has-name': !!file}">
-      <b-upload v-model="file" class="file-label" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" @input="handleFileChange">
+    <o-field
+      class="file is-primary"
+      :class="{'has-name': !!file}"
+    >
+      <o-upload
+        v-model="file"
+        class="file-label"
+        accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+        @input="handleFileChange"
+      >
         <span class="file-cta">
-          <b-icon icon="upload"></b-icon>
+          <o-icon icon="upload" />
           <span class="file-label">Выберите файл</span>
         </span>
-        <span class="file-name" v-if="file">
+        <span
+          v-if="file"
+          class="file-name"
+        >
           {{ file.name }}
         </span>
-      </b-upload>
-    </b-field>
+      </o-upload>
+    </o-field>
 
-    <b-field v-if="file" label="Описание файла">
-      <b-input v-model="description" placeholder="Необязательное описание"></b-input>
-    </b-field>
+    <o-field
+      v-if="file"
+      label="Описание файла"
+    >
+      <o-input
+        v-model="description"
+        placeholder="Необязательное описание"
+      />
+    </o-field>
 
-    <b-field v-if="file">
+    <o-field v-if="file">
       <div class="buttons">
-        <b-button type="is-primary" :loading="isLoading" @click="handleUpload">
+        <o-button
+          type="is-primary"
+          :loading="isLoading"
+          @click="handleUpload"
+        >
           Загрузить
-        </b-button>
-        <b-button type="is-danger" @click="cancelUpload">
+        </o-button>
+        <o-button
+          type="is-danger"
+          @click="cancelUpload"
+        >
           Отмена
-        </b-button>
+        </o-button>
       </div>
-    </b-field>
+    </o-field>
 
-    <b-progress v-if="uploadProgress > 0 && uploadProgress < 100" :value="uploadProgress" show-value format="percent"></b-progress>
+    <o-progress
+      v-if="uploadProgress > 0 && uploadProgress < 100"
+      :value="uploadProgress"
+      show-value
+      format="percent"
+    />
   </div>
 </template>
 

@@ -1,101 +1,145 @@
 <template>
-  <b-navbar type="is-primary" wrapper-class="container" mobile-burger>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <RouterLink
+        class="navbar-brand"
+        to="/"
+      >{{ generalStore.app.navbarName }}</RouterLink>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        @click="toggleMenu"
+      >
+        <span class="navbar-toggler-icon" />
+      </button>
+      <div
+        id="navbarSupportedContent"
+        class="collapse navbar-collapse"
+        :class="{ show: isOpenMenu }"
+      >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" v-for="(item, index) in navigationStore.topNav" :key="index">
+            <RouterLink
+              class="nav-link"
+              :class="{active: item.path === $route.path}"
+              :to="{ path: item.path }"
+              aria-current="page"
+              @click.native="isOpenMenu = false"
+            >{{ item.name }}</RouterLink>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >Action</a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >Another action</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >Something else here</a>
+              </li>
+            </ul>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- <o-navbar type="is-primary" wrapper-class="container" mobile-burger>
     <template #brand>
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <o-navbar-item tag="router-link" :to="{ path: '/' }">
         <strong>My Vue App</strong>
-      </b-navbar-item>
+      </o-navbar-item>
     </template>
 
-    <template #start>
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+<template #start>
+      <o-navbar-item tag="router-link" :to="{ path: '/' }">
         Главная
-      </b-navbar-item>
-      <b-navbar-item tag="router-link" :to="{ path: '/upload' }">
+      </o-navbar-item>
+      <o-navbar-item tag="router-link" :to="{ path: '/upload' }">
         Загрузка файлов
-      </b-navbar-item>
+      </o-navbar-item>
     </template>
 
-    <template #end>
-      <b-navbar-item tag="router-link" :to="{ path: '/login' }" v-if="!isAuthenticated">
+<template #end>
+      <o-navbar-item tag="router-link" :to="{ path: '/login' }" v-if="!isAuthenticated">
         Вход
-      </b-navbar-item>
-      <b-navbar-item tag="router-link" :to="{ path: '/register' }" v-if="!isAuthenticated">
+      </o-navbar-item>
+      <o-navbar-item tag="router-link" :to="{ path: '/register' }" v-if="!isAuthenticated">
         Регистрация
-      </b-navbar-item>
+      </o-navbar-item>
       
-      <b-navbar-dropdown :label="userName" v-if="isAuthenticated">
-        <b-navbar-item tag="router-link" :to="{ path: '/profile' }">
+      <o-navbar-dropdown :label="userName" v-if="isAuthenticated">
+        <o-navbar-item tag="router-link" :to="{ path: '/profile' }">
           Профиль
-        </b-navbar-item>
-        <b-navbar-item @click="logout">
+        </o-navbar-item>
+        <o-navbar-item @click="logout">
           Выход
-        </b-navbar-item>
-      </b-navbar-dropdown>
+        </o-navbar-item>
+      </o-navbar-dropdown>
     </template>
-  </b-navbar>
+</o-navbar> -->
 </template>
 
-<script>
+<script setup>
+import { ref, defineComponent } from "vue";
+import {useNavigationStore} from "@/stores/navigation";
+import {useGeneralStore} from "@/stores/general";
 
-import { BNavbar, BNavbarDropdown, BNavbarItem } from "buefy";
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : {
   getItem: () => null,
-  setItem: () => {},
-  removeItem: () => {}
+  setItem: () => { },
+  removeItem: () => { }
 }
 
-export default {
+defineComponent({
   name: 'NavBar',
-  data() {
-    return {
-      isAuthenticated: false,
-      userName: ''
-    }
-  },
-  components: {
-    BNavbar,
-    BNavbarDropdown,
-    BNavbarItem
-  },
-  methods: {
-    checkAuth() {
-      // Здесь можно проверить наличие токена в localStorage
-      const token = localStorage.getItem('token')
-      this.isAuthenticated = !!token
-      
-      // Если нужно имя пользователя
-      const user = localStorage.getItem('user')
-      this.userName = user ? JSON.parse(user).name : ''
-    },
-    logout() {
-      // Очищаем данные аутентификации
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      this.isAuthenticated = false
-      this.userName = ''
-      
-      // Перенаправляем на страницу входа
-      this.$router.push('/login')
-    }
-  },
-  created() {
-    this.checkAuth()
-    
-    // Можно добавить обработчик событий, если аутентификация меняется в других компонентах
-    // this.$root.$on('auth-changed', () => {
-    //   this.checkAuth()
-    // })
-  },
-  beforeDestroy() {
-    // Не забываем удалить обработчик событий при уничтожении компонента
-    // this.$root.$off('auth-changed')
-  }
+})
+
+const generalStore = useGeneralStore()
+const navigationStore = useNavigationStore()
+
+const isAuthenticated = ref(false)
+const userName = ref(false)
+const isOpenMenu = ref(false)
+
+const toggleMenu = () => {
+  isOpenMenu.value = !isOpenMenu.value
 }
 </script>
 
-<style scoped>
-.navbar {
-  margin-bottom: 2rem;
+<style>
+.collapse:not(.show) {
+  display: none !important;
 }
+
+/* @import './NavBar. css' */
 </style>

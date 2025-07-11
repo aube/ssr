@@ -8,16 +8,17 @@ import router from './router'
 import Oruga from "@oruga-ui/oruga-next";
 // import "@oruga-ui/theme-oruga/dist/oruga.css";
 
-import { bulmaConfig } from '@oruga-ui/theme-bulma';
-import '@oruga-ui/theme-bulma/dist/bulma.css';
+import { bootstrapConfig } from '@oruga-ui/theme-bootstrap';
+import '@oruga-ui/theme-bootstrap/dist/bootstrap.css';
 
 
 
-import Buefy from 'buefy'
+// import Buefy from 'buefy'
 // import 'buefy/dist/buefy.css'
 // import '@mdi/font/css/materialdesignicons.min.css'
 
-// import './assets/main.css'
+// import './assets/bootstrap.css'
+import './assets/main.css'
 
 
 // SSR requires a fresh app instance per request, therefore we export a function
@@ -28,8 +29,7 @@ export function createApp() {
   const pinia = createPinia()
   app.use(pinia)
   app.use(router)
-  app.use(Buefy)
   // app.use(Oruga)
-  app.use(Oruga, bulmaConfig)
+  app.use(Oruga, bootstrapConfig)
   return { app, router }
 }

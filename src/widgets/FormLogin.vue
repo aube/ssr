@@ -1,43 +1,68 @@
 <template>
-  <b-form @submit.prevent="handleSubmit">
-    <b-field label="Email" :message="errors.email" :type="{'is-danger': errors.email}">
-      <b-input v-model="form.email" type="email" placeholder="Введите ваш email" />
-    </b-field>
+  <o-field
+    label="Email"
+    :message="errors.email"
+    :type="{'is-danger': errors.email}"
+  >
+    <o-input
+      v-model="form.email"
+      placeholder="Введите ваш email"
+      type="email"
+    />
+  </o-field>
 
-    <b-field label="Пароль" :message="errors.password" :type="{'is-danger': errors.password}">
-      <b-input v-model="form.password" type="password" placeholder="Введите пароль" password-reveal />
-    </b-field>
+  <o-field
+    label="Пароль"
+    :message="errors.password"
+    :type="{'is-danger': errors.password}"
+  >
+    <o-input
+      v-model="form.password"
+      password-reveal
+      placeholder="Введите пароль"
+      type="password"
+    />
+  </o-field>
 
-    <b-field>
-      <div class="buttons">
-        <b-button native-type="submit" type="is-primary" :loading="isLoading">
-          Войти
-        </b-button>
-        <b-button tag="router-link" to="/forgot-password" type="is-text">
-          Забыли пароль?
-        </b-button>
-      </div>
-    </b-field>
-  </b-form>
+  <o-field>
+    <div class="buttons">
+      <o-button
+        :loading="isLoading"
+        native-type="submit"
+        type="is-primary"
+        @click="handleSubmit"
+      >
+        Войти
+      </o-button>
+      <o-button
+        inverted
+        tag="router-link"
+        to="/forgot-password"
+        variant="primary"
+      >
+        Забыли пароль?
+      </o-button>
+    </div>
+  </o-field>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import {reactive, ref} from 'vue'
 
 defineOptions({
-  name: 'FormLogin'
+  name: 'FormLogin',
 })
 
-defineEmits(['submit'])
+const emit = defineEmits(['submit'])
 
 const form = reactive({
   email: '',
-  password: ''
+  password: '',
 })
 
 const errors = reactive({
   email: '',
-  password: ''
+  password: '',
 })
 
 const isLoading = ref(false)
