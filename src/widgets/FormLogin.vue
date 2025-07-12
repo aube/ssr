@@ -47,8 +47,8 @@
 </template>
 
 <script setup>
-import {reactive, ref} from 'vue'
-import {useGeneralStore} from '../stores/general.js'
+import { reactive, ref } from 'vue'
+import { useGeneralStore } from '../stores/general.js'
 
 const generalStore = useGeneralStore()
 
@@ -58,8 +58,8 @@ defineOptions({
 
 const emit = defineEmits(['submit'])
 
-const email = generalStore.isDev ? 'qwe@qwe.qwe'  : ''
-const password = generalStore.isDev ? 'password'  : ''
+const email = generalStore.isDev ? 'qwe@qwe.qwe' : ''
+const password = generalStore.isDev ? 'password' : ''
 
 const form = reactive({
   email,
@@ -75,9 +75,9 @@ const isLoading = ref(false)
 
 const validate = () => {
   let isValid = true
-  
+
   Object.keys(errors).forEach(key => errors[key] = '')
-  
+
   if (!form.email.trim()) {
     errors.email = 'Email обязателен'
     isValid = false
@@ -85,18 +85,18 @@ const validate = () => {
     errors.email = 'Введите корректный email'
     isValid = false
   }
-  
+
   if (!form.password) {
     errors.password = 'Пароль обязателен'
     isValid = false
   }
-  
+
   return isValid
 }
 
 const handleSubmit = async () => {
   if (!validate()) return
-  
+
   isLoading.value = true
   try {
     emit('submit', form)

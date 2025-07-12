@@ -4,11 +4,11 @@
       v-for="notification in notifications"
       :key="notification.id"
       aria-close-label="Close notification"
-      class="notification"
+      class="notification m-2"
       :class="`notification--${notification.type}`"
       closeable
       role="alert"
-      variant="danger"
+      :variant="notification.type"
       @close="remove(notification.id)"
     >
       {{ notification.message }}

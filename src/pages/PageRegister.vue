@@ -6,13 +6,19 @@
 
 <script setup>
 import FormRegister from '../widgets/FormRegister.vue'
-import {useRestApi} from '../services/restapi.js'
+import { useNotificationStore } from '@/stores/notification'
+import { useRestApi } from '../services/restapi.js'
 
-const {post} = useRestApi()
+const { showSuccess, showDanger } = useNotificationStore()
 
+const { post } = useRestApi()
 
 const registerUser = async (formData) => {
   const response = await post('/api/v1/register', formData)
-  console.log(response)
+  if (!response.error) {
+    showSuccess('Вы успешно зарегистрированы! Проверьте ваш email для подтверждения.')
+  } else {
+    showDanger('Ошибка регистрации. Попробуйте позже.')
+  }
 }
 </script>

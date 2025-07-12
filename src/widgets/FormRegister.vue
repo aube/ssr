@@ -50,7 +50,6 @@
 
   <o-field>
     <o-button
-      expanded
       :loading="isLoading"
       native-type="submit"
       type="is-primary"
@@ -63,6 +62,9 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useGeneralStore } from '../stores/general.js'
+
+const generalStore = useGeneralStore()
 
 defineOptions({
   name: 'FormRegister',
@@ -70,15 +72,22 @@ defineOptions({
 
 const emit = defineEmits(['submit'])
 
+
+const username = generalStore.isDev ? 'qweqweqwe' : ''
+const email = generalStore.isDev ? 'qwe@qwe.qwe' : ''
+const password = generalStore.isDev ? 'password' : ''
+const password_confirmation = generalStore.isDev ? 'password' : ''
+
+
 const form = reactive({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
+  username,
+  email,
+  password,
+  password_confirmation,
 })
 
 const errors = reactive({
-  name: '',
+  username: '',
   email: '',
   password: '',
   password_confirmation: '',

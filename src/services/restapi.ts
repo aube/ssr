@@ -2,10 +2,9 @@ import { ref } from "vue";
 import { useGeneralStore } from "@/stores/general";
 import { useNotificationStore } from '@/stores/notification'
 
-const store = useNotificationStore()
-const { danger : dangerNotify } = store
+const { apiBaseURL, isDev } = useGeneralStore()
 
-const generalStore = useGeneralStore()
+const { showWarning } = useNotificationStore()
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -15,7 +14,7 @@ interface ApiResponse<T> {
   loading: boolean;
 }
 
-export function useRestApi(baseURL = generalStore.apiBaseURL) {
+export function useRestApi(baseURL = apiBaseURL) {
   const loading = ref(false);
 
   async function request<T>(
@@ -23,7 +22,6 @@ export function useRestApi(baseURL = generalStore.apiBaseURL) {
     method: HttpMethod = "GET",
     body?: unknown,
   ): Promise<ApiResponse<T>> {
-    console.log("endpoint ==> ", endpoint);
     loading.value = true;
     try {
       const response = await fetch(`${baseURL}${endpoint}`, {
@@ -44,7 +42,11 @@ export function useRestApi(baseURL = generalStore.apiBaseURL) {
       return { data, error: null, loading: false };
     } catch (err) {
       const error = err instanceof Error ? err.message : "Unknown error"
-      dangerNotify(error, 5000);
+
+      if (isDev) {
+        showWarning(error, 5000);
+      }
+
       return {
         data: null,
         error,

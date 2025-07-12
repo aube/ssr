@@ -18,7 +18,7 @@ export const useNotificationStore = defineStore('notification', {
   state: () => ({
     notifications: [] as INotification[],
     nextId: 1,
-    defaultTimeout: 5000, // 5 seconds
+    defaultTimeout: 3000,
   }),
 
   actions: {
@@ -48,19 +48,19 @@ export const useNotificationStore = defineStore('notification', {
       this.notifications = this.notifications.filter(notification => notification.id !== id)
     },
 
-    success(message:string, timeout:number) {
+    showSuccess(message:string, timeout:number) {
       return this.add({ message, type: 'success', timeout })
     },
 
-    danger(message:string, timeout:number) {
+    showDanger(message:string, timeout:number) {
       return this.add({ message, type: 'danger', timeout })
     },
 
-    warning(message:string, timeout:number) {
+    showWarning(message:string, timeout:number) {
       return this.add({ message, type: 'warning', timeout })
     },
 
-    info(message:string, timeout:number) {
+    showInfo(message:string, timeout:number) {
       return this.add({ message, type: 'info', timeout })
     },
 
