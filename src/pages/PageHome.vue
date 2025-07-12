@@ -1,46 +1,53 @@
 <template>
   <div class="container">
-<section class="odocs-spaced">
-    <p>
+    <section class="odocs-spaced">
+      <p>
         <o-button
-            label="Launch toast (default)"
-            size="medium"
-            click="toast" />
+          click="toast"
+          label="Launch toast (default)"
+          size="medium"
+        />
         <o-button
-            label="Launch toast (success)"
-            variant="success"
-            size="medium"
-            click="success" />
+          click="success"
+          label="Launch toast (success)"
+          size="medium"
+          variant="success"
+        />
         <o-button
-            label="Launch toast (danger)"
-            variant="danger"
-            size="medium"
-            click="danger" />
-    </p>
+          click="danger"
+          label="Launch toast (danger)"
+          size="medium"
+          variant="danger"
+        />
+      </p>
 
-    <p>
+      <p>
         <o-button
-            label="Launch toast (queued)"
-            variant="primary"
-            size="medium"
-            click="queueToast" />
+          click="queueToast"
+          label="Launch toast (queued)"
+          size="medium"
+          variant="primary"
+        />
         <o-button
-            label="Launch toast (pause on hover)"
-            variant="secondary"
-            size="medium"
-            click="pause" />
+          click="pause"
+          label="Launch toast (pause on hover)"
+          size="medium"
+          variant="secondary"
+        />
         <o-button
-            label="Launch toast (infinite)"
-            variant="warning"
-            size="medium"
-            click="infinite" />
+          click="infinite"
+          label="Launch toast (infinite)"
+          size="medium"
+          variant="warning"
+        />
         <o-button
-            label="close toast (infinite)"
-            variant="danger"
-            size="medium"
-            click="closeIndefinite" />
-    </p>
-</section>
+          click="closeIndefinite"
+          label="close toast (infinite)"
+          size="medium"
+          variant="danger"
+        />
+      </p>
+    </section>
   </div>
 </template>
 

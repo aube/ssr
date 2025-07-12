@@ -1,7 +1,8 @@
-import { globalIgnores } from 'eslint/config'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import pluginVue from 'eslint-plugin-vue'
+import { globalIgnores } from 'eslint/config'
+import globals from 'globals'
 import pluginVitest from '@vitest/eslint-plugin'
+import pluginVue from 'eslint-plugin-vue'
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -16,34 +17,61 @@ export default defineConfigWithVueTs(
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
-  // pluginVue.configs['flat/essential'],
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.jest,
+      },
+    },
+  },
 
   {
     files: ['**/*.{ts,mts,tsx,vue}'],
     rules: {
-      'vue/multi-word-component-names': 'off', // Example of overriding a rule
-      '@typescript-eslint/explicit-function-return-type': 'off', // Example of adding a rule
-      '@typescript-eslint/no-unused-vars': 'warn', // Example of adding a rule
-      'vue/no-unused-components': 'warn', // Example of adding a rule
-      'vue/no-v-html': 'off', // Example of disabling a rule
-      'vue/block-lang': 'off', // Example of disabling a rule
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
+
+      'vue/multi-word-component-names': 'off',
+      'vue/no-unused-components': 'warn',
+      'vue/no-v-html': 'off',
+      'vue/block-lang': 'off',
+
       "indent": ["warn", 2],
+      "arrow-spacing": "warn",
+      "space-infix-ops": "warn",
+      "no-multi-spaces": "warn",
+      "no-trailing-spaces": "warn",
+      "no-unused-vars": "warn",
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "no-undef": "warn",
+      "no-unused-expressions": "warn",
+      "no-constant-condition": "warn",
+      "no-empty": "warn",
+      "no-extra-semi": "warn",
+      "no-fallthrough": "warn",
+      "no-irregular-whitespace": "warn",
+      "no-mixed-spaces-and-tabs": "warn",
+      "no-redeclare": "warn",
+      "no-duplicate-imports": "warn",
+      "no-var": "off",
 
       "sort-imports": ["warn", {
         "ignoreCase": false,
         "ignoreDeclarationSort": false,
         "ignoreMemberSort": false,
         "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-        "allowSeparatedGroups": false
+        "allowSeparatedGroups": false,
       }],
       "comma-dangle": ["warn", {
         "arrays": "always-multiline",
         "objects": "always-multiline",
         "imports": "always-multiline",
         "exports": "always-multiline",
-        "functions": "ignore"
+        "functions": "ignore",
       }],
       "array-bracket-spacing": ["warn", "never", {
         "singleValue": false,
@@ -51,9 +79,9 @@ export default defineConfigWithVueTs(
         "arraysInArrays": false,
       }],
       "space-in-parens": ["warn", "never"],
-      "object-curly-spacing": ["warn", "never", {
+      "object-curly-spacing": ["warn", "always", {
         "arraysInObjects": false,
-        "objectsInObjects": false
+        "objectsInObjects": false,
       }],
       "vue/attributes-order": ["warn", {
         "order": [
@@ -67,11 +95,10 @@ export default defineConfigWithVueTs(
           "OTHER_DIRECTIVES",
           "OTHER_ATTR",
           "EVENTS",
-          "CONTENT"
+          "CONTENT",
         ],
-        "alphabetical": true
+        "alphabetical": true,
       }],
-      "arrow-spacing": "warn"
     },
   },
   {

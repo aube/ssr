@@ -1,6 +1,11 @@
 import { ref } from "vue";
+import { useGeneralStore } from "@/stores/general";
+import { useNotificationStore } from '@/stores/notification'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const store = useNotificationStore()
+const { danger : dangerNotify } = store
+
+const generalStore = useGeneralStore()
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -10,7 +15,7 @@ interface ApiResponse<T> {
   loading: boolean;
 }
 
-export function useRestApi() {
+export function useRestApi(baseURL = generalStore.apiBaseURL) {
   const loading = ref(false);
 
   async function request<T>(
@@ -18,9 +23,10 @@ export function useRestApi() {
     method: HttpMethod = "GET",
     body?: unknown,
   ): Promise<ApiResponse<T>> {
+    console.log("endpoint ==> ", endpoint);
     loading.value = true;
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`, {
+      const response = await fetch(`${baseURL}${endpoint}`, {
         method,
         headers: {
           "Content-Type": "application/json",
@@ -37,9 +43,11 @@ export function useRestApi() {
       const data = (await response.json()) as T;
       return { data, error: null, loading: false };
     } catch (err) {
+      const error = err instanceof Error ? err.message : "Unknown error"
+      dangerNotify(error, 5000);
       return {
         data: null,
-        error: err instanceof Error ? err.message : "Unknown error",
+        error,
         loading: false,
       };
     } finally {

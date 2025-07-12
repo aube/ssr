@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-
 import NavBar from './components/NavBar.vue'
+import Notification from './components/Notification.vue'
+import { RouterView } from 'vue-router'
 
 if (import.meta.env.SSR) {
   console.log("server")
@@ -11,6 +11,7 @@ if (import.meta.env.SSR) {
 </script>
 
 <template>
+  <Notification />
   <NavBar />
   <RouterView />
 </template>

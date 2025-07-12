@@ -4,15 +4,17 @@
       <RouterLink
         class="navbar-brand"
         to="/"
-      >{{ generalStore.app.navbarName }}</RouterLink>
+      >
+        {{ generalStore.navbarName }}
+      </RouterLink>
       <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#navbarSupportedContent"
+        data-bs-toggle="collapse"
+        type="button"
         @click="toggleMenu"
       >
         <span class="navbar-toggler-icon" />
@@ -23,14 +25,20 @@
         :class="{ show: isOpenMenu }"
       >
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" v-for="(item, index) in navigationStore.topNav" :key="index">
+          <li
+            v-for="(item, index) in navigationStore.topNav"
+            :key="index"
+            class="nav-item"
+          >
             <RouterLink
+              aria-current="page"
               class="nav-link"
               :class="{active: item.path === $route.path}"
               :to="{ path: item.path }"
-              aria-current="page"
-              @click.native="isOpenMenu = false"
-            >{{ item.name }}</RouterLink>
+              @click="isOpenMenu = false"
+            >
+              {{ item.name }}
+            </RouterLink>
           </li>
           <!-- <li class="nav-item dropdown">
             <a
@@ -95,7 +103,7 @@
       <o-navbar-item tag="router-link" :to="{ path: '/register' }" v-if="!isAuthenticated">
         Регистрация
       </o-navbar-item>
-      
+
       <o-navbar-dropdown :label="userName" v-if="isAuthenticated">
         <o-navbar-item tag="router-link" :to="{ path: '/profile' }">
           Профиль
@@ -109,15 +117,16 @@
 </template>
 
 <script setup>
-import { ref, defineComponent } from "vue";
-import {useNavigationStore} from "@/stores/navigation";
-import {useGeneralStore} from "@/stores/general";
+import { defineComponent, ref } from "vue";
+import { useGeneralStore } from "@/stores/general";
+import { useNavigationStore } from "@/stores/navigation";
 
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
+
 const localStorage = isBrowser ? window.localStorage : {
   getItem: () => null,
   setItem: () => { },
-  removeItem: () => { }
+  removeItem: () => { },
 }
 
 defineComponent({

@@ -43,6 +43,7 @@
     "css-render": "^0.15.14",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "~10.2.0",
+    "globals": "^16.3.0",
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
     "npm-run-all2": "^8.0.4",

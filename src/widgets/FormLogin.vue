@@ -2,7 +2,7 @@
   <o-field
     label="Email"
     :message="errors.email"
-    :type="{'is-danger': errors.email}"
+    :variant="errors.email? 'danger' : ''"
   >
     <o-input
       v-model="form.email"
@@ -14,7 +14,7 @@
   <o-field
     label="Пароль"
     :message="errors.password"
-    :type="{'is-danger': errors.password}"
+    :variant="errors.password? 'danger' : ''"
   >
     <o-input
       v-model="form.password"
@@ -37,7 +37,7 @@
       <o-button
         inverted
         tag="router-link"
-        to="/forgot-password"
+        to="/reminder"
         variant="primary"
       >
         Забыли пароль?
@@ -48,6 +48,9 @@
 
 <script setup>
 import {reactive, ref} from 'vue'
+import {useGeneralStore} from '../stores/general.js'
+
+const generalStore = useGeneralStore()
 
 defineOptions({
   name: 'FormLogin',
@@ -55,9 +58,12 @@ defineOptions({
 
 const emit = defineEmits(['submit'])
 
+const email = generalStore.isDev ? 'qwe@qwe.qwe'  : ''
+const password = generalStore.isDev ? 'password'  : ''
+
 const form = reactive({
-  email: '',
-  password: '',
+  email,
+  password,
 })
 
 const errors = reactive({
@@ -70,10 +76,8 @@ const isLoading = ref(false)
 const validate = () => {
   let isValid = true
   
-  // Сброс ошибок
   Object.keys(errors).forEach(key => errors[key] = '')
   
-  // Валидация
   if (!form.email.trim()) {
     errors.email = 'Email обязателен'
     isValid = false

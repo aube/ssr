@@ -23,4 +23,9 @@ export const routes = [
     name: 'upload',
     component: (): Promise<typeof import('*.vue')> => import('../pages/PageUpload.vue'),
   },
+  {
+    path: '/reminder',
+    name: 'reminder',
+    component: (): Promise<typeof import('*.vue')> => import('../pages/PageReminder.vue'),
+  },
 ]
