@@ -1,6 +1,6 @@
 # ssr
 
-Simple Vue 3 application example with SSR
+Simple Vue 3 application example with SSR and Oruga-UI with Bootstrap-theme
 
 ## Project Setup
 
