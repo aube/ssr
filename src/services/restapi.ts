@@ -20,18 +20,27 @@ export function useRestApi(baseURL = apiBaseURL) {
   async function request<T>(
     endpoint: string,
     method: HttpMethod = "GET",
-    body?: unknown,
+    body?: unknown
   ): Promise<ApiResponse<T>> {
     loading.value = true;
+    const isFormdata = body && body instanceof FormData;
+
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    if (!isFormdata) {
+      headers["Content-Type"] = "application/json";
+    }
+
     try {
       const response = await fetch(`${baseURL}${endpoint}`, {
         method,
-        headers: {
-          "Content-Type": "application/json",
-          // Add auth headers if needed
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: body ? JSON.stringify(body) : undefined,
+        headers,
+        body: body
+          ? isFormdata
+            ? (body as globalThis.BodyInit)
+            : JSON.stringify(body)
+          : undefined,
       });
 
       if (!response.ok) {
@@ -44,7 +53,7 @@ export function useRestApi(baseURL = apiBaseURL) {
       const error = err instanceof Error ? err.message : "Unknown error"
 
       if (isDev) {
-        showWarning(error, 5000);
+        showWarning(error, 15000);
       }
 
       return {
@@ -61,8 +70,8 @@ export function useRestApi(baseURL = apiBaseURL) {
     loading,
     request,
     get: <T>(endpoint: string) => request<T>(endpoint),
-    post: <T>(endpoint: string, body: unknown) =>
-      request<T>(endpoint, "POST", body),
+    post: <T>(endpoint: string, body: unknown, contentType: string = "") =>
+      request<T>(endpoint, "POST", body, contentType),
     put: <T>(endpoint: string, body: unknown) =>
       request<T>(endpoint, "PUT", body),
     patch: <T>(endpoint: string, body: unknown) =>

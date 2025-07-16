@@ -14,6 +14,11 @@ export const routes = [
     component: (): Promise<typeof import('*.vue')> => import('../pages/PageLogin.vue'),
   },
   {
+    path: '/logout',
+    name: 'logout',
+    component: (): Promise<typeof import('*.vue')> => import('../pages/PageLogout.vue'),
+  },
+  {
     path: '/register',
     name: 'register',
     component: (): Promise<typeof import('*.vue')> => import('../pages/PageRegister.vue'),

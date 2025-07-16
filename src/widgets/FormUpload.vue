@@ -50,13 +50,13 @@
         </o-button>
       </div>
     </o-field>
-
+    <!--
     <o-progress
       v-if="uploadProgress > 0 && uploadProgress < 100"
       format="percent"
       show-value
       :value="uploadProgress"
-    />
+    /> -->
   </div>
 </template>
 
@@ -94,16 +94,16 @@ const handleUpload = async () => {
 
   try {
     // Эмулируем прогресс загрузки
-    const interval = setInterval(() => {
-      uploadProgress.value += 10
-      if (uploadProgress.value >= 90) clearInterval(interval)
-    }, 200)
+    // const interval = setInterval(() => {
+    //   uploadProgress.value += 10
+    //   if (uploadProgress.value >= 90) clearInterval(interval)
+    // }, 200)
 
-    // Здесь должна быть реальная загрузка на сервер
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // // Здесь должна быть реальная загрузка на сервер
+    // await new Promise(resolve => setTimeout(resolve, 2000))
 
-    clearInterval(interval)
-    uploadProgress.value = 100
+    // clearInterval(interval)
+    // uploadProgress.value = 100
 
     emit('upload', {
       file: file.value,

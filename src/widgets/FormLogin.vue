@@ -1,5 +1,17 @@
 <template>
   <o-field
+    label="Username"
+    :message="errors.username"
+    :variant="errors.username? 'danger' : ''"
+  >
+    <o-input
+      v-model="form.username"
+      placeholder="Введите ваше имя пользователя"
+      type="username"
+    />
+  </o-field>
+
+  <o-field
     label="Email"
     :message="errors.email"
     :variant="errors.email? 'danger' : ''"
@@ -58,17 +70,20 @@ defineOptions({
 
 const emit = defineEmits(['submit'])
 
-const email = generalStore.isDev ? 'qwe@qwe.qwe' : ''
+const username = generalStore.isDev ? 'qweqweqwe' : ''
 const password = generalStore.isDev ? 'password' : ''
+const email = generalStore.isDev ? 'qwe@qwe.qwe' : ''
 
 const form = reactive({
-  email,
+  username,
   password,
+  email,
 })
 
 const errors = reactive({
-  email: '',
+  username: '',
   password: '',
+  email: '',
 })
 
 const isLoading = ref(false)
@@ -78,12 +93,12 @@ const validate = () => {
 
   Object.keys(errors).forEach(key => errors[key] = '')
 
-  if (!form.email.trim()) {
-    errors.email = 'Email обязателен'
+  if (!form.username.trim()) {
+    errors.username = 'username обязателен'
     isValid = false
-  } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-    errors.email = 'Введите корректный email'
-    isValid = false
+  // } else if (!/^\S+@\S+\.\S+$/.test(form.username)) {
+  //   errors.username = 'Введите корректный username'
+  //   isValid = false
   }
 
   if (!form.password) {

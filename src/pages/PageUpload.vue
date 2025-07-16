@@ -6,9 +6,24 @@
 
 <script setup>
 import FormUpload from '../widgets/FormUpload.vue'
+import { useNotificationStore } from '@/stores/notification'
+import { useRestApi } from '../services/restapi.js'
 
-const handleFileUpload = ({ file, description }) => {
-    console.log('Загрузка файла:', file, description)
-    // Отправка файла на сервер
+
+const { showSuccess, showDanger } = useNotificationStore()
+
+const { post } = useRestApi()
+
+const handleFileUpload = async ({ file, description }) => {
+  var formData = new FormData()
+  formData.append('file', file)
+  formData.append('description', description)
+
+  const response = await post('/api/v1/upload', formData, "multipart/form-data")
+  if (!response.error) {
+    showSuccess('Файл успешно загружен.')
+  } else {
+    showDanger('Ошибка загрузки. Попробуйте позже.')
+  }
 }
 </script>
